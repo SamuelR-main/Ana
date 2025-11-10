@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
+@font-face{
+  font-family: 'PerfectPenmanship';
+  src: url('/font/KGPerfectPenmanship.otf') format("otf"),
+       url('/font/KGPerfectPenmanship.ttf') format('tff');
+}
 :root {
-  font-family: "Parisienne", cursive;
+  font-family: 'PerfectPenmanship';
   font-weight: 400;
   font-style: normal;
 }
