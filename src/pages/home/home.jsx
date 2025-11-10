@@ -109,24 +109,64 @@ function Homepage() {
           <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-20 h-20 left-[15%] top-[50%]"></div>
           <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-24 h-24 left-[90%] top-[10%]"></div>
         </div>
-        <Card width="350px" height="450px">
-            <div className="flex flex-col items-center w-full h-full" onClick={() => {setVisibleSecond(false); setVisibleLetter(true);}}>
-                <img src={LetterImg} alt="image Carta" />
-                <p className="text-6xl md:text-4xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">Carta</p>
-            </div>
-        </Card>
-        <Card width="350px" height="450px">
-            <div className="flex flex-col items-center w-full h-full" onClick={() => {setVisibleSecond(false); setVisiblePhoto(true);}}>
-                <img src={PhotoImg} alt="image Portrait" />
-                <p className="text-6xl md:text-4xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">Fotos</p>
-            </div>
-        </Card>
-        <Card width="350px" height="450px">
-            <div className="flex flex-col items-center w-full h-full" onClick={() => {setVisibleSecond(false); setVisiblePlay(true);}}>
-                <img src={PlayImg} alt="image Play" />
-                <p className="text-6xl md:text-4xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">Musicas</p>
-            </div> 
-        </Card>
+        <div className="flex flex-wrap justify-center items-center gap-8 w-screen h-screen bg-gradient-to-br from-[#C2E9FB] to-[#A1C4FD] p-6">
+  <Card width="350px" height="450px">
+    <div
+      className="flex flex-col items-center justify-center w-full h-full cursor-pointer transition-transform duration-300 hover:scale-105"
+      onClick={() => {
+        setVisibleSecond(false);
+        setVisibleLetter(true);
+      }}
+    >
+      <img
+        src={LetterImg}
+        alt="image Carta"
+        className="w-28 h-28 md:w-36 md:h-36"
+      />
+      <p className="text-4xl md:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">
+        Carta
+      </p>
+    </div>
+  </Card>
+
+  <Card width="350px" height="450px">
+    <div
+      className="flex flex-col items-center justify-center w-full h-full cursor-pointer transition-transform duration-300 hover:scale-105"
+      onClick={() => {
+        setVisibleSecond(false);
+        setVisiblePhoto(true);
+      }}
+    >
+      <img
+        src={PhotoImg}
+        alt="image Portrait"
+        className="w-28 h-28 md:w-36 md:h-36"
+      />
+      <p className="text-4xl md:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">
+        Fotos
+      </p>
+    </div>
+  </Card>
+
+  <Card width="350px" height="450px">
+    <div
+      className="flex flex-col items-center justify-center w-full h-full cursor-pointer transition-transform duration-300 hover:scale-105"
+      onClick={() => {
+        setVisibleSecond(false);
+        setVisiblePlay(true);
+      }}
+    >
+      <img
+        src={PlayImg}
+        alt="image Play"
+        className="w-28 h-28 md:w-36 md:h-36"
+      />
+      <p className="text-4xl md:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">
+        Músicas
+      </p>
+    </div>
+  </Card>
+</div>
         </div>
     )}
     {visibleLetter && (
