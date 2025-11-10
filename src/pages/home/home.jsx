@@ -109,61 +109,31 @@ function Homepage() {
           <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-20 h-20 left-[15%] top-[50%]"></div>
           <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-24 h-24 left-[90%] top-[10%]"></div>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-8 w-screen h-screen bg-gradient-to-br from-[#C2E9FB] to-[#A1C4FD] p-6">
-  <Card width="350px" height="450px">
-    <div
-      className="flex flex-col items-center justify-center w-full h-full cursor-pointer transition-transform duration-300 hover:scale-105"
-      onClick={() => {
-        setVisibleSecond(false);
-        setVisibleLetter(true);
-      }}
-    >
-      <img
-        src={LetterImg}
-        alt="image Carta"
-        className="w-28 h-28 md:w-36 md:h-36"
-      />
-      <p className="text-4xl md:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">
-        Carta
-      </p>
+        <div className="flex flex-wrap justify-center items-center gap-8 w-full min-h-screen bg-gradient-to-br from-[#C2E9FB] to-[#A1C4FD] p-6">
+  {/* CARD 1 */}
+  <Card className="w-[80%] max-w-[320px] h-[220px] sm:w-[45%] sm:h-[400px] lg:w-[350px] lg:h-[450px] cursor-pointer flex items-center justify-center"
+        >
+    <div className="flex flex-col items-center justify-center w-full h-full" onClick={() => {setVisibleSecond(false); setVisibleLetter(true);}}>
+      <img src={LetterImg} alt="image Carta" className="w-1/2 sm:w-2/3h-auto object-contain" />
+      <p className="text-4xl sm:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">Carta</p>
     </div>
   </Card>
 
-  <Card width="350px" height="450px">
-    <div
-      className="flex flex-col items-center justify-center w-full h-full cursor-pointer transition-transform duration-300 hover:scale-105"
-      onClick={() => {
-        setVisibleSecond(false);
-        setVisiblePhoto(true);
-      }}
-    >
-      <img
-        src={PhotoImg}
-        alt="image Portrait"
-        className="w-28 h-28 md:w-36 md:h-36"
-      />
-      <p className="text-4xl md:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">
-        Fotos
-      </p>
+  {/* CARD 2 */}
+  <Card className="w-[80%] max-w-[320px] h-[220px] sm:w-[45%] sm:h-[400px] lg:w-[350px] lg:h-[450px] cursor-pointer flex items-center justify-center"
+        >
+    <div className="flex flex-col items-center justify-center w-full h-full" onClick={() => {setVisibleSecond(false); setVisiblePhoto(true);}}>
+      <img src={PhotoImg} alt="image Portrait" className="w-1/2 sm:w-2/3 h-auto object-contain" />
+      <p className="text-4xl sm:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">Fotos</p>
     </div>
   </Card>
 
-  <Card width="350px" height="450px">
-    <div
-      className="flex flex-col items-center justify-center w-full h-full cursor-pointer transition-transform duration-300 hover:scale-105"
-      onClick={() => {
-        setVisibleSecond(false);
-        setVisiblePlay(true);
-      }}
-    >
-      <img
-        src={PlayImg}
-        alt="image Play"
-        className="w-28 h-28 md:w-36 md:h-36"
-      />
-      <p className="text-4xl md:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">
-        Músicas
-      </p>
+  {/* CARD 3 */}
+  <Card className="w-[80%] max-w-[320px] h-[220px] sm:w-[45%] sm:h-[400px] lg:w-[350px] lg:h-[450px] cursor-pointer flex items-center justify-center"
+        >
+    <div className="flex flex-col items-center justify-center w-full h-full" onClick={() => {setVisibleSecond(false); setVisiblePlay(true);}}>
+      <img src={PlayImg} alt="image Play" className="w-1/2 sm:w-2/3 h-auto object-contain" />
+      <p className="text-4xl sm:text-5xl text-white italic mt-6 [text-shadow:2px_2px_6px_#000000]">Músicas</p>
     </div>
   </Card>
 </div>
@@ -191,8 +161,8 @@ function Homepage() {
         <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-24 h-24 left-[90%] top-[10%]"></div>
       </div>
       <div className="flex flex-col w-[100px] h-[100px] bg-amber-800 absolute z-11 items-start justify-start justify-items-start" onClick={() => {setVisibleLetter(false); setVisibleSecond(true);}}>
-        <p>12112</p>
-      </div>
+            <p className="text-white">Voltar</p>
+            </div>
       <div className="flex flex-col w-6xl h-[700px] bg-[#FFFDFD] absolute z-10">
         <p>dsdsd</p>
       </div>
@@ -219,6 +189,9 @@ function Homepage() {
               <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-20 h-20 left-[15%] top-[50%]"></div>
               <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-24 h-24 left-[90%] top-[10%]"></div>
             </div>
+            <div className="flex flex-col w-[100px] h-[100px] bg-amber-800 absolute z-11 items-start justify-start justify-items-start" onClick={() => {setVisiblePhoto(false); setVisibleSecond(true);}}>
+            <p className="text-white">Voltar</p>
+            </div>
             </div>
     )}
     {visiblePlay && (
@@ -241,6 +214,9 @@ function Homepage() {
               <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-10 h-10 left-[50%] top-[90%]"></div>
               <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-20 h-20 left-[15%] top-[50%]"></div>
               <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-24 h-24 left-[90%] top-[10%]"></div>
+            </div>
+            <div className="flex flex-col w-[100px] h-[100px] bg-amber-800 absolute z-11 items-start justify-start justify-items-start" onClick={() => {setVisiblePlay(false); setVisibleSecond(true);}}>
+            <p className="text-white">Voltar</p>
             </div>
             </div>
     )}
