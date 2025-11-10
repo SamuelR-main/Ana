@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useRef, useEffect  } from "react";
+import { Play, Pause, SkipBack, SkipForward } from "lucide-react";
 import Card from "../../components/card";
-import present from "../../img/presente.png";
+import present from "/img/presente.png";
 import confetti from "canvas-confetti";
-import popSound from "../../sounds/pop.mp3";
-import PlayImg from "../../img/Play.png"
-import PhotoImg from "../../img/Photo.png"
-import LetterImg from "../../img/Letter.png"
+import popSound from "/sounds/pop.mp3";
+import PlayImg from "/img/Play.png"
+import PhotoImg from "/img/Photo.png"
+import LetterImg from "/img/Letter.png"
 import "./homepage.css";
 
 function Homepage() {
@@ -50,6 +51,65 @@ function Homepage() {
     }, 2000);
   };
 
+  //Musica
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  const audioRef = useRef(null);
+
+  const tracks = [
+    { title: "Nirvana - Smells Like Teen Spirit", src: "/sounds/Nirvana - Smells Like Teen Spirit.mp3", cover: "/img/Cover1.jpg"},
+    { title: "Nirvana - Come As You Are", src: "/sounds/Nirvana - Come As You Are.mp3", cover: "/img/Cover2.jpg"},
+    { title: "Nirvana - Heart-Shaped Box", src: "/sounds/Nirvana - Heart-Shaped Box.mp3", cover: "/img/Cover3.jpg"}
+  ];
+  const slideshow = [
+    "/img/Photo1.avif",
+    "/img/Photo2.avif"
+  ];
+
+  // Troca automática das fotos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPhotoIndex((prev) => (prev + 1) % slideshow.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Atualiza o progresso da música
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return; // <— impede erro antes do áudio existir
+  
+    const updateProgress = () => setProgress((audio.currentTime / audio.duration) * 100 || 0);
+    audio.addEventListener("timeupdate", updateProgress);
+    return () => audio.removeEventListener("timeupdate", updateProgress);
+  }, [currentTrack]);
+
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+const skipTrack = (direction) => {
+  let newTrack = currentTrack + direction;
+  if (newTrack < 0) newTrack = tracks.length - 1;
+  if (newTrack >= tracks.length) newTrack = 0;
+
+  setProgress(0); // <— reseta barra de progresso
+  setCurrentTrack(newTrack);
+  setIsPlaying(false);
+  setTimeout(() => {
+    audioRef.current.play();
+    setIsPlaying(true);
+  }, 100);
+};
   return (
     <>
     {visible && (
@@ -215,6 +275,66 @@ function Homepage() {
               <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-20 h-20 left-[15%] top-[50%]"></div>
               <div className="bubble absolute rounded-full bg-white/25 backdrop-blur-sm w-24 h-24 left-[90%] top-[10%]"></div>
             </div>
+            <div className="flex flex-col w-screen h-screen bg-gradient-to-b from-[#A1C4FD] to-[#C2E9FB] items-center p-6 overflow-y-auto">
+      <div className="flex flex-col lg:flex-row gap-6 w-full justify-center mb-8">
+        {/* CAPA */}
+        <div className="bg-white/60 rounded-2xl backdrop-blur-sm shadow-md w-full lg:w-1/3 aspect-square flex items-center justify-center">
+          <img
+            src={tracks[currentTrack].cover}
+            alt="Capa da música"
+            className="rounded-xl w-[90%] h-[90%] object-cover shadow-lg"
+          />
+        </div>
+
+        {/* SLIDESHOW */}
+        <div className="bg-white/60 rounded-2xl backdrop-blur-sm shadow-md w-full lg:w-1/3 aspect-square flex items-center justify-center">
+          <img
+            src={slideshow[photoIndex]}
+            alt="Slideshow"
+            className="rounded-xl w-[90%] h-[90%] object-cover transition-opacity duration-700 ease-in-out"
+          />
+        </div>
+      </div>
+
+      {/* LISTA DE MÚSICAS */}
+      <div className="w-full lg:w-3/4 flex flex-col gap-4">
+        {tracks.map((track, index) => (
+          <div
+            key={index}
+            onClick={() => { setCurrentTrack(index); setIsPlaying(true); audioRef.current.play(); }}
+            className={`flex items-center gap-4 bg-white/30 backdrop-blur-sm rounded-xl px-4 py-3 cursor-pointer transition hover:bg-white/50 ${
+              index === currentTrack ? "border-2 border-white" : ""
+            }`}
+          >
+            <Play className="text-white w-6 h-6" />
+            <div className="flex flex-col w-full">
+              <p className="text-white text-lg font-semibold">{track.title}</p>
+              <div className="h-1 bg-white/50 rounded-full mt-1 overflow-hidden">
+                <div
+                  className={`h-1 bg-white rounded-full transition-all duration-300`}
+                  style={{
+                    width: index === currentTrack ? `${progress}%` : "0%",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* CONTROLES */}
+      <div className="flex items-center justify-center gap-6 mt-10">
+        <SkipBack className="text-white w-8 h-8 cursor-pointer" onClick={() => skipTrack(-1)} />
+        {isPlaying ? (
+          <Pause className="text-white w-10 h-10 cursor-pointer" onClick={togglePlay} />
+        ) : (
+          <Play className="text-white w-10 h-10 cursor-pointer" onClick={togglePlay} />
+        )}
+        <SkipForward className="text-white w-8 h-8 cursor-pointer" onClick={() => skipTrack(1)} />
+      </div>
+
+      <audio ref={audioRef} src={tracks[currentTrack].src} />
+    </div>
             <div className="flex flex-col w-[100px] h-[100px] bg-amber-800 absolute z-11 items-start justify-start justify-items-start" onClick={() => {setVisiblePlay(false); setVisibleSecond(true);}}>
             <p className="text-white">Voltar</p>
             </div>
